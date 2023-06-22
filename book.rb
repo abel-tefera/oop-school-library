@@ -9,5 +9,5 @@ class Book
     Rental.new(date, self, person)
   end
 
-  attr_accessor :title, :author, :rentals
+  attr_accessor :title, :author
 end
