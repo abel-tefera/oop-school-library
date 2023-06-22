@@ -19,7 +19,7 @@ class Person < Nameable
   def correct_name
     @name
   end
-  
+
   def rentals(book, date)
     Rental.new(date, book, self)
   end
