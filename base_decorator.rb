@@ -1,4 +1,4 @@
-class BaseDecorator < Nameable
+class BaseDecorator < Nameable # rubocop:todo Layout/EndOfLine
   def initialize(nameable)
     super()
     @nameable = nameable
