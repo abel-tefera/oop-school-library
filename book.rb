@@ -5,9 +5,9 @@ class Book
     @rentals = []
   end
 
-  def rentals(person, date)
+  def addRental(person, date)
     Rental.new(date, self, person)
   end
 
-  attr_accessor :title, :author
+  attr_accessor :title, :author, :rentals
 end
