@@ -48,7 +48,42 @@ class App
     end
   end
 
+  def save_books
+    books_to_save = []
 
+    @books.each do |book|
+      books_to_save << { 'title' => book.title, 'author' => book.author }
+    end
+
+    File.write('db/books.json', JSON.pretty_generate(books_to_save))
+  end
+
+  def save_persons
+    persons_to_save = []
+
+    @persons.each do |person|
+      if person.instance_of?(::Teacher)
+        persons_to_save << { 'type' => 'Teacher', 'id' => person.id, 'name' => person.name, 'age' => person.age,
+                             'specialization' => person.specialization }
+      elsif person.instance_of?(::Student)
+        persons_to_save << { 'type' => 'Student', 'id' => person.id, 'name' => person.name, 'age' => person.age,
+                             'parent_permission' => person.parent_permission }
+      end
+    end
+
+    File.write('db/persons.json', JSON.pretty_generate(persons_to_save))
+  end
+
+  def save_rentals
+    rentals_to_save = []
+
+    @rentals.each do |rental|
+      rentals_to_save << { 'renter' => rental.person.name, 'rented_book' => rental.book.title,
+                           'date' => rental.date }
+    end
+
+    File.write('db/rentals.json', JSON.pretty_generate(rentals_to_save))
+  end
 
   def save_and_exit
     puts 'Data has been saved! Thank you for using this app!'
