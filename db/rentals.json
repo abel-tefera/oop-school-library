@@ -1,0 +1,27 @@
+[
+  {
+    "renter": "Abel",
+    "rented_book": "The XRP Standard",
+    "date": "06/28/2023"
+  },
+  {
+    "renter": "Lincoln",
+    "rented_book": "Baba Yaga",
+    "date": "12/12/2012"
+  },
+  {
+    "renter": "Abel",
+    "rented_book": "My name is Jeff",
+    "date": "07/13/2023"
+  },
+  {
+    "renter": "Mo",
+    "rented_book": "The firmament",
+    "date": "01/01/2001"
+  },
+  {
+    "renter": "Dave",
+    "rented_book": "The Pyramid",
+    "date": "09/11/2001"
+  }
+]
