@@ -3,6 +3,7 @@ require_relative 'teacher'
 require_relative 'book'
 require_relative 'rental'
 require_relative 'create_persons'
+require 'json'
 
 class App
   attr_accessor :books, :persons, :rentals
@@ -11,6 +12,54 @@ class App
     @books = []
     @persons = []
     @rentals = []
+  end
+
+  def read_file(file)
+    if File.exist?("db/#{file}.json")
+      File.read("db/#{file}.json")
+    else
+      empty_json = [].to_json
+      File.write("db/#{file}.json", empty_json)
+      empty_json
+    end
+  end
+
+  def generate_saved_data
+    books = JSON.parse(read_file('books'))
+    persons = JSON.parse(read_file('persons'))
+    rentals = JSON.parse(read_file('rentals'))
+
+    books.each do |book|
+      @books << Book.new(book['title'], book['author'])
+    end
+
+    persons.each do |person|
+      @persons << if person['type'] == 'Teacher'
+                    Teacher.new(person['age'], person['name'], person['specialization'], parent_permission: true)
+                  else
+                    Student.new(nil, person['age'], person['name'], parent_permission: person['parent_permission'])
+                  end
+    end
+
+    rentals.each do |rental|
+      rentee = @persons.select { |person| person.name == rental['renter'] }
+      rented_book = @books.select { |book| book.title == rental['rented_book'] }
+      @rentals << Rental.new(rental['date'], rented_book[0], rentee[0])
+    end
+  end
+
+
+
+  def save_and_exit
+    puts 'Data has been saved! Thank you for using this app!'
+
+    save_books
+
+    save_persons
+
+    save_rentals
+
+    exit
   end
 
   def list_books
@@ -93,6 +142,6 @@ class App
     puts '4 - Create a book'
     puts '5 - Create a rental'
     puts '6 - List all rentals for a given person id'
-    puts '7 - Exit'
+    puts '7 - Save & Exit'
   end
 end
