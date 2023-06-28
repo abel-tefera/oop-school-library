@@ -14,11 +14,9 @@ def manage_selection(app, option)
     4 => :create_book,
     5 => :create_rental,
     6 => :list_rental,
-    7 => :exit,
+    7 => :save_and_exit,
     default: :invalid_option
   }
-
-  puts 'Thank you for using this app!' if option == 7
 
   selection = tasks[option] || tasks[:default]
   app.send(selection)
@@ -30,7 +28,7 @@ end
 
 def home(app)
   puts '------------------------------'
-  puts 'Welcome to School Library App!'
+  puts 'Welcome to OOP School Library App!'
   puts '------------------------------'
 
   loop do
