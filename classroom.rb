@@ -9,5 +9,5 @@ class ClassRoom
     student.classroom = self
   end
 
-  attr_accessor :label, :student
+  attr_accessor :label, :students
 end
