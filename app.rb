@@ -2,8 +2,11 @@ require_relative 'student'
 require_relative 'teacher'
 require_relative 'book'
 require_relative 'rental'
+require_relative 'create_persons'
 
 class App
+  attr_accessor :books, :persons, :rentals
+
   def initialize
     @books = []
     @persons = []
@@ -16,40 +19,6 @@ class App
 
   def list_persons
     @persons.each { |person| puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}" }
-  end
-
-  def create_teacher
-    print 'Age: '
-    age = gets.chomp
-    print 'Name: '
-    name = gets.chomp
-    print 'Specialization: '
-    specialization = gets.chomp
-    teacher = Teacher.new(age, name, specialization, parent_permission: true)
-    @persons << teacher
-    puts 'Person (teacher) created successfully'
-  end
-
-  def create_student
-    print 'Age: '
-    age = Integer(gets.chomp)
-    print 'Name: '
-    name = gets.chomp
-    print 'Has parent permission? [Y/N]: '
-    parent_permission = gets.chomp.downcase
-
-    case parent_permission
-    when 'n'
-      student = Student.new(nil, age, name, parent_permission: false)
-      @persons << student
-    when 'y'
-      student = Student.new(nil, age, name, parent_permission: true)
-      @persons << student
-    else
-      'Invalid!'
-    end
-
-    puts 'Person (student) created successfully'
   end
 
   def create_person
@@ -74,7 +43,13 @@ class App
   end
 
   def create_rental
-    return if @books.empty? || @persons.empty?
+    if @books.empty?
+      puts 'Please create a book first'
+      return
+    elsif @persons.empty?
+      puts 'Please create at least one person first'
+      return
+    end
 
     puts 'Select a book from the following list by number'
     @books.each_with_index { |book, index| puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}" }
@@ -87,7 +62,7 @@ class App
 
     selected_person = Integer(gets.chomp)
 
-    print 'Date: '
+    print 'Date (MM/DD/YYYY)): '
     selected_date = gets.chomp.to_s
 
     rented = Rental.new(selected_date, @books[selected_book], @persons[selected_person])
