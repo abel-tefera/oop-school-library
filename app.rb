@@ -14,16 +14,6 @@ class App
     @rentals = []
   end
 
-  def read_file(file)
-    if File.exist?("db/#{file}.json")
-      File.read("db/#{file}.json")
-    else
-      empty_json = [].to_json
-      File.write("db/#{file}.json", empty_json)
-      empty_json
-    end
-  end
-
   def generate_saved_data
     books = JSON.parse(read_file('books'))
     persons = JSON.parse(read_file('persons'))
