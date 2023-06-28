@@ -1,0 +1,30 @@
+[
+  {
+    "type": "Student",
+    "id": 51221,
+    "name": "Abel",
+    "age": 24,
+    "parent_permission": false
+  },
+  {
+    "type": "Teacher",
+    "id": 79637,
+    "name": "Lincoln",
+    "age": "36",
+    "specialization": "Mafia"
+  },
+  {
+    "type": "Student",
+    "id": 58086,
+    "name": "Mo",
+    "age": 26,
+    "parent_permission": true
+  },
+  {
+    "type": "Student",
+    "id": 24871,
+    "name": "Dave",
+    "age": 29,
+    "parent_permission": false
+  }
+]
